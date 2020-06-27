@@ -47,7 +47,7 @@ import Photos
         }
         
         /// The icon to display inside the selection oval
-        public lazy var selectionStyle: SelectionStyle = .checked
+        @objc public lazy var selectionStyle: SelectionStyle = .checked
         
         @objc public lazy var previewTitleAttributes : [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),

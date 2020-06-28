@@ -1,5 +1,3 @@
-# Net.Xamarin.iOS.BSImagePicker
-
 # BSImagePicker binding for Xamarin.iOS
 ![GitHub](https://img.shields.io/github/license/SByteDev/Net.Xamarin.iOS.BSImagePicker.svg)
 ![Nuget](https://img.shields.io/nuget/v/SByteDev.Xamarin.iOS.BSImagePicker.svg)

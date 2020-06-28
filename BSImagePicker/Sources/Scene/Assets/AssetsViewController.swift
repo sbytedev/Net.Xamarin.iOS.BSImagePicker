@@ -133,7 +133,7 @@ class AssetsViewController: UIViewController {
     }
 
     @objc func collectionViewLongPressed(_ sender: UILongPressGestureRecognizer) {
-        guard settings.preview.enabled else { return }
+        guard settings.previewEnabled else { return }
         guard sender.state == .began else { return }
 
         selectionFeedback.selectionChanged()

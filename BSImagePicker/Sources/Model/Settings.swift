@@ -24,64 +24,64 @@ import UIKit
 import Photos
 
 /// Settings for BSImagePicker
-@objcMembers public class Settings : NSObject {
+@objc(Settings) public class Settings : NSObject {
     public static let shared = Settings()
 
     // Move all theme related stuff to UIAppearance
-    public class Theme : NSObject {
+    @objc(Theme) public class Theme : NSObject {
         /// Main background color
-        public lazy var backgroundColor: UIColor = .white
+        @objc public lazy var backgroundColor: UIColor = .systemBackgroundColor
         
         /// What color to fill the circle with
-        public lazy var selectionFillColor: UIColor = UIView().tintColor
+        @objc public lazy var selectionFillColor: UIColor = UIView().tintColor
         
-        /// Color for the actual selection icon
-        public lazy var selectionStrokeColor: UIColor = .white
+        /// Color for the actual checkmark
+        @objc public lazy var selectionStrokeColor: UIColor = .white
         
         /// Shadow color for the circle
-        public lazy var selectionShadowColor: UIColor = .black
+        @objc public lazy var selectionShadowColor: UIColor = .systemShadowColor
         
-        public enum SelectionStyle {
+        @objc public enum SelectionStyle : Int {
             case checked
             case numbered
         }
         
         /// The icon to display inside the selection oval
-        public lazy var selectionStyle: SelectionStyle = .checked
+        @objc public lazy var selectionStyle: SelectionStyle = .checked
         
-        public lazy var previewTitleAttributes : [NSAttributedString.Key: Any] = [
+        @objc public lazy var previewTitleAttributes : [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
-            NSAttributedString.Key.foregroundColor: UIColor.black
+            NSAttributedString.Key.foregroundColor: UIColor.systemPrimaryTextColor
         ]
         
-        public lazy var previewSubtitleAttributes: [NSAttributedString.Key: Any] = [
+        @objc public lazy var previewSubtitleAttributes: [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
-            NSAttributedString.Key.foregroundColor: UIColor.black
+            NSAttributedString.Key.foregroundColor: UIColor.systemSecondaryTextColor
         ]
         
-        public lazy var albumTitleAttributes: [NSAttributedString.Key: Any] = [
+        @objc public lazy var albumTitleAttributes: [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18),
-            NSAttributedString.Key.foregroundColor: UIColor.black
+            NSAttributedString.Key.foregroundColor: UIColor.systemPrimaryTextColor
         ]
     }
 
-    public class Selection : NSObject {
+    @objc(Selection) public class Selection : NSObject {
         /// Max number of selections allowed
-        public lazy var max: Int = Int.max
+        @objc public lazy var max: Int = Int.max
         
         /// Min number of selections you have to make
-        public lazy var min: Int = 1
+        @objc public lazy var min: Int = 1
         
         /// If it reaches the max limit, unselect the first selection, and allow the new selection
-        public lazy var unselectOnReachingMax : Bool = false
+        @objc public lazy var unselectOnReachingMax : Bool = false
     }
 
-    public class List : NSObject {
+    @objc(List) public class List : NSObject {
         /// How much spacing between cells
-        public lazy var spacing: CGFloat = 2
+        @objc public lazy var spacing: CGFloat = 2
         
         /// How many cells per row
-        public lazy var cellsPerRow: (_ verticalSize: UIUserInterfaceSizeClass, _ horizontalSize: UIUserInterfaceSizeClass) -> Int = {(verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int in
+        @objc public lazy var cellsPerRow: (_ verticalSize: UIUserInterfaceSizeClass, _ horizontalSize: UIUserInterfaceSizeClass) -> Int = {(verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int in
             switch (verticalSize, horizontalSize) {
             case (.compact, .regular): // iPhone5-6 portrait
                 return 3
@@ -95,15 +95,10 @@ import Photos
         }
     }
 
-    public class Preview : NSObject {
-        /// Is preview enabled?
-        public lazy var enabled: Bool = true
-    }
-
-    public class Fetch : NSObject {
-        public class Album : NSObject {
+    @objc(Fetch) public class Fetch : NSObject {
+        @objc(Album) public class Album : NSObject {
             /// Fetch options for albums/collections
-            public lazy var options: PHFetchOptions = {
+            @objc public lazy var options: PHFetchOptions = {
                 let fetchOptions = PHFetchOptions()
                 return fetchOptions
             }()
@@ -115,12 +110,12 @@ import Photos
             ///                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumSelfPortraits, options: options),
             ///                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumPanoramas, options: options),
             ///                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumVideos, options: options),
-            public lazy var fetchResults: [PHFetchResult<PHAssetCollection>] = [
+            @objc public lazy var fetchResults: [PHFetchResult<PHAssetCollection>] = [
                 PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: options),
             ]
         }
 
-        public class Assets : NSObject {
+        @objc(Assets) public class Assets : NSObject {
             /// Fetch options for assets
 
             /// Simple wrapper around PHAssetMediaType to ensure we only expose the supported types.
@@ -138,8 +133,34 @@ import Photos
                 }
             }
             public lazy var supportedMediaTypes: Set<MediaTypes> = [.image]
+            
+            @objc public var imageTypesSupported: Bool {
+                get { return supportedMediaTypes.contains(MediaTypes.image) }
+                set (newVal) {
+                    if newVal == imageTypesSupported {
+                        return;
+                    } else if newVal {
+                        supportedMediaTypes.insert(MediaTypes.image)
+                    } else {
+                        supportedMediaTypes.remove(MediaTypes.image)
+                    }
+                }
+            }
+            
+            @objc public var videoTypesSupported: Bool {
+                get { return supportedMediaTypes.contains(MediaTypes.video) }
+                set (newVal) {
+                    if newVal == videoTypesSupported {
+                        return;
+                    } else if newVal {
+                        supportedMediaTypes.insert(MediaTypes.video)
+                    } else {
+                        supportedMediaTypes.remove(MediaTypes.video)
+                    }
+                }
+            }
 
-            public lazy var options: PHFetchOptions = {
+            @objc public lazy var options: PHFetchOptions = {
                 let fetchOptions = PHFetchOptions()
                 fetchOptions.sortDescriptors = [
                     NSSortDescriptor(key: "creationDate", ascending: false)
@@ -153,21 +174,21 @@ import Photos
             }()
         }
 
-        public class Preview : NSObject {
-            public lazy var photoOptions: PHImageRequestOptions = {
+        @objc(Preview) public class Preview : NSObject {
+            @objc public lazy var photoOptions: PHImageRequestOptions = {
                 let options = PHImageRequestOptions()
                 options.isNetworkAccessAllowed = true
 
                 return options
             }()
 
-            public lazy var livePhotoOptions: PHLivePhotoRequestOptions = {
+            @objc public lazy var livePhotoOptions: PHLivePhotoRequestOptions = {
                 let options = PHLivePhotoRequestOptions()
                 options.isNetworkAccessAllowed = true
                 return options
             }()
 
-            public lazy var videoOptions: PHVideoRequestOptions = {
+            @objc public lazy var videoOptions: PHVideoRequestOptions = {
                 let options = PHVideoRequestOptions()
                 options.isNetworkAccessAllowed = true
                 return options
@@ -175,35 +196,35 @@ import Photos
         }
 
         /// Album fetch settings
-        public lazy var album = Album()
+        @objc public lazy var album = Album()
         
         /// Asset fetch settings
-        public lazy var assets = Assets()
+        @objc public lazy var assets = Assets()
 
         /// Preview fetch settings
-        public lazy var preview = Preview()
+        @objc public lazy var preview = Preview()
     }
     
-    public class Dismiss : NSObject {
+    @objc(Dismiss) public class Dismiss : NSObject {
         /// Should the image picker dismiss when done/cancelled
-        public lazy var enabled = true
+        @objc public lazy var enabled = true
     }
 
     /// Theme settings
-    public lazy var theme = Theme()
+    @objc public lazy var theme = Theme()
     
     /// Selection settings
-    public lazy var selection = Selection()
+    @objc public lazy var selection = Selection()
     
     /// List settings
-    public lazy var list = List()
+    @objc public lazy var list = List()
     
     /// Fetch settings
-    public lazy var fetch = Fetch()
+    @objc public lazy var fetch = Fetch()
     
     /// Dismiss settings
-    public lazy var dismiss = Dismiss()
+    @objc public lazy var dismiss = Dismiss()
 
     /// Preview options
-    public lazy var preview = Preview()
+    @objc public lazy var previewEnabled: Bool = true
 }

@@ -64,6 +64,8 @@ namespace SByteDev.Xamarin.iOS.BSImagePicker.Demo
             imagePicker.Settings.Fetch.Assets.AreImageTypesSupported = true;
             imagePicker.Settings.Fetch.Assets.AreVideoTypesSupported = true;
             imagePicker.Settings.Selection.ShouldUnselectOnReachingMax = true;
+            imagePicker.Settings.Dismiss.IsSwipeEnabled = true;
+            imagePicker.Settings.Dismiss.IsEnabled = true;
 
             await PresentViewControllerAsync(imagePicker, true).ConfigureAwait(false);
         }

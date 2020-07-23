@@ -246,5 +246,9 @@ namespace SByteDev.Xamarin.iOS.BSImagePicker
         // @property (nonatomic) BOOL enabled;
         [Export("enabled")]
         bool IsEnabled { get; set; }
+
+        // @property (nonatomic) BOOL allowSwipe;
+        [Export ("allowSwipe")]
+        bool IsSwipeEnabled { get; set; }
     }
 }

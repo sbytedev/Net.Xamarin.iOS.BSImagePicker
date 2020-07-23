@@ -208,6 +208,9 @@ import Photos
     @objc(Dismiss) public class Dismiss : NSObject {
         /// Should the image picker dismiss when done/cancelled
         @objc public lazy var enabled = true
+
+        /// Allow the user to dismiss the image picker by swiping down
+        @objc public lazy var allowSwipe = false
     }
 
     /// Theme settings

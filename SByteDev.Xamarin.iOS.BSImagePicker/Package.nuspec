@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SByteDev.Xamarin.iOS.BSImagePicker</id>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <authors>Prin53, SByteDev</authors>
     <owners>Prin53, SByteDev</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>

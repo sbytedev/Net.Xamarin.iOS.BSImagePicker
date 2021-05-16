@@ -23,4 +23,4 @@ jobs:
       run: nuget restore
 
     - name: Build
-      run: MSBuild /t:SByteDev_Xamarin_iOS_BSImagePicker /p:Configuration=Release
+      run: MSBuild /t:SByteDev_Xamarin_iOS_BSImagePicker /p:Configuration=Release /p:Platform=iPhone

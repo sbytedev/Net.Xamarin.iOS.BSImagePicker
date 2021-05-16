@@ -1,8 +1,8 @@
 # BSImagePicker binding for Xamarin.iOS
 ![GitHub](https://img.shields.io/github/license/SByteDev/Net.Xamarin.iOS.BSImagePicker.svg)
 ![Nuget](https://img.shields.io/nuget/v/SByteDev.Xamarin.iOS.BSImagePicker.svg)
-[![Build Status](https://img.shields.io/bitrise/d1fd3128deec4532/develop?label=development&token=G80DodOLbipps0ZiWU4r7Q)](https://app.bitrise.io/app/d1fd3128deec4532)
-[![Build Status](https://img.shields.io/bitrise/d1fd3128deec4532/master?label=production&token=G80DodOLbipps0ZiWU4r7Q)](https://app.bitrise.io/app/d1fd3128deec4532)
+[![CI](https://github.com/SByteDev/Net.Xamarin.iOS.BSImagePicker/actions/workflows/ci.yml/badge.svg)](https://github.com/SByteDev/Net.Xamarin.iOS.BSImagePicker/actions/workflows/ci.yml)
+[![CD](https://github.com/SByteDev/Net.Xamarin.iOS.BSImagePicker/actions/workflows/cd.yml/badge.svg)](https://github.com/SByteDev/Net.Xamarin.iOS.BSImagePicker/actions/workflows/cd.yml)
 
 [BSImagePicker](https://github.com/mikaoj/BSImagePicker) is a multiple image picker for iOS, that supports
 

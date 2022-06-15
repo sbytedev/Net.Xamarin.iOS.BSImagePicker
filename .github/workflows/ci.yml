@@ -28,7 +28,7 @@ jobs:
 
     - name: Build simulator archive
       working-directory: BSImagePicker
-      run: xcodebuild archive -project BSImagePicker.xcodeproj -scheme BSImagePicker -destination "generic/platform=iOS Simulator" \ -archivePath BSImagePicker-Simulator SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+      run: xcodebuild archive -project BSImagePicker.xcodeproj -scheme BSImagePicker -destination "generic/platform=iOS Simulator" -archivePath BSImagePicker-Simulator SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES
 
     - name: Make XCFramework
       working-directory: BSImagePicker

@@ -24,24 +24,22 @@ import UIKit
 import Photos
 
 // MARK: ImagePickerController
-@objc(ImagePickerController) open class ImagePickerController: UINavigationController {
+@objc(BSImagePickerController)
+@objcMembers open class ImagePickerController: UINavigationController {
     // MARK: Public properties
-    @objc public weak var imagePickerDelegate: ImagePickerControllerDelegate?
-    @objc public var settings: Settings = Settings()
-    @objc public var doneButton: UIBarButtonItem = UIBarButtonItem(title: "", style: .done, target: nil, action: nil)
-    @objc public var cancelButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
-    @objc public var albumButton: UIButton = UIButton(type: .custom)
-    @objc public var selectedAssets: [PHAsset] {
+    public weak var imagePickerDelegate: ImagePickerControllerDelegate?
+    public var settings: Settings = Settings()
+    public var doneButton: UIBarButtonItem = UIBarButtonItem(title: "", style: .done, target: nil, action: nil)
+    public var cancelButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
+    public var albumButton: UIButton = UIButton(type: .custom)
+    public var selectedAssets: [PHAsset] {
         get {
             return assetStore.assets
         }
     }
 
-    // Note this trick to get the apple localization no longer works.
-    // Figure out why. Until then, expose the variable for users to set to whatever they want it localized to
-    // TODO: Fix this ^^
     /// Title to use for button
-    @objc public var doneButtonTitle = Bundle(identifier: "com.apple.UIKit")?.localizedString(forKey: "Done", value: "Done", table: "") ?? "Done"
+    public var doneButtonTitle = Bundle(for: UIBarButtonItem.self).localizedString(forKey: "Done", value: "Done", table: "")
 
     // MARK: Internal properties
     var assetStore: AssetStore
@@ -74,14 +72,14 @@ import Photos
             return assetsFetchResult.count > 0
         }
     }()
-    
-    @objc public init(selectedAssets: [PHAsset] = []) {
+
+    public init(selectedAssets: [PHAsset] = []) {
         assetStore = AssetStore(assets: selectedAssets)
         assetsViewController = AssetsViewController(store: assetStore)
         super.init(nibName: nil, bundle: nil)
     }
 
-    @objc public required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -144,6 +142,12 @@ import Photos
         }
     }
 
+    public func deselect(asset: PHAsset) {
+        assetStore.remove(asset)
+        assetsViewController.unselect(asset: asset)
+        updatedDoneButton()
+    }
+    
     func updatedDoneButton() {
         doneButton.title = assetStore.count > 0 ? doneButtonTitle + " (\(assetStore.count))" : doneButtonTitle
       

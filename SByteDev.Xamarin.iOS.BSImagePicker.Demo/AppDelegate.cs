@@ -10,7 +10,7 @@ namespace SByteDev.Xamarin.iOS.BSImagePicker.Demo
 
         private static void Main(string[] args)
         {
-            UIApplication.Main(args, null, nameof(AppDelegate));
+            UIApplication.Main(args, null, typeof(AppDelegate));
         }
 
         [Export("application:didFinishLaunchingWithOptions:")]

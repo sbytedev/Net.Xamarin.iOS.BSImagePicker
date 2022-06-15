@@ -24,7 +24,8 @@ import Foundation
 import Photos
 
 /// Delegate of the image picker
-@objc(ImagePickerControllerDelegate) public protocol ImagePickerControllerDelegate: class {
+@objc(BSImagePickerControllerDelegate)
+public protocol ImagePickerControllerDelegate: AnyObject {
     /// An asset was selected
     /// - Parameter imagePicker: The image picker that asset was selected in
     /// - Parameter asset: selected asset

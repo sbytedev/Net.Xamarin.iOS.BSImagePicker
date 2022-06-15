@@ -23,14 +23,18 @@
 import UIKit
 import Photos
 
-/// Settings for BSImagePicker
-@objc(Settings) public class Settings : NSObject {
-    public static let shared = Settings()
+@objc(BSImagePickerSettings) // Fix for ObjC header name conflicting.
+@objcMembers public class Settings : NSObject {
+    @objc public static let shared = Settings()
 
     // Move all theme related stuff to UIAppearance
-    @objc(Theme) public class Theme : NSObject {
+    @objc(BSImagePickerTheme) // Fix for ObjC header name conflicting.
+    @objcMembers public class Theme : NSObject {
         /// Main background color
         @objc public lazy var backgroundColor: UIColor = .systemBackgroundColor
+        
+        /// Color for backgroun of drop downs
+        @objc public lazy var dropDownBackgroundColor: UIColor = .clear
         
         /// What color to fill the circle with
         @objc public lazy var selectionFillColor: UIColor = UIView().tintColor
@@ -41,7 +45,8 @@ import Photos
         /// Shadow color for the circle
         @objc public lazy var selectionShadowColor: UIColor = .systemShadowColor
         
-        @objc public enum SelectionStyle : Int {
+        @objc(BSImagePickerSelectionStyle)
+        public enum SelectionStyle : Int {
             case checked
             case numbered
         }
@@ -64,8 +69,9 @@ import Photos
             NSAttributedString.Key.foregroundColor: UIColor.systemPrimaryTextColor
         ]
     }
-
-    @objc(Selection) public class Selection : NSObject {
+    
+    @objc(BSImagePickerSelection)
+    @objcMembers public class Selection : NSObject {
         /// Max number of selections allowed
         @objc public lazy var max: Int = Int.max
         
@@ -76,7 +82,8 @@ import Photos
         @objc public lazy var unselectOnReachingMax : Bool = false
     }
 
-    @objc(List) public class List : NSObject {
+    @objc(BSImagePickerList)
+    @objcMembers public class List : NSObject {
         /// How much spacing between cells
         @objc public lazy var spacing: CGFloat = 2
         
@@ -95,8 +102,16 @@ import Photos
         }
     }
 
-    @objc(Fetch) public class Fetch : NSObject {
-        @objc(Album) public class Album : NSObject {
+    @objc(BSImagePickerPreview)
+    @objcMembers public class Preview : NSObject {
+        /// Is preview enabled?
+        @objc public lazy var enabled: Bool = true
+    }
+
+    @objc(BSImagePickerFetch)
+    @objcMembers public class Fetch : NSObject {
+        @objc(BSImagePickerAlbum)
+        @objcMembers public class Album : NSObject {
             /// Fetch options for albums/collections
             @objc public lazy var options: PHFetchOptions = {
                 let fetchOptions = PHFetchOptions()
@@ -115,7 +130,8 @@ import Photos
             ]
         }
 
-        @objc(Assets) public class Assets : NSObject {
+        @objc(BSImagePickerAssets)
+        @objcMembers public class Assets : NSObject {
             /// Fetch options for assets
 
             /// Simple wrapper around PHAssetMediaType to ensure we only expose the supported types.
@@ -132,12 +148,13 @@ import Photos
                     }
                 }
             }
-            public lazy var supportedMediaTypes: Set<MediaTypes> = [.image]
             
-            @objc public var imageTypesSupported: Bool {
+            public lazy var supportedMediaTypes: Set<MediaTypes> = [.image]
+                        
+            @objc public var supportedImageMediaTypes: Bool {
                 get { return supportedMediaTypes.contains(MediaTypes.image) }
                 set (newVal) {
-                    if newVal == imageTypesSupported {
+                    if newVal == supportedImageMediaTypes {
                         return;
                     } else if newVal {
                         supportedMediaTypes.insert(MediaTypes.image)
@@ -147,10 +164,10 @@ import Photos
                 }
             }
             
-            @objc public var videoTypesSupported: Bool {
+            @objc public var supportedVideoMediaTypes: Bool {
                 get { return supportedMediaTypes.contains(MediaTypes.video) }
                 set (newVal) {
-                    if newVal == videoTypesSupported {
+                    if newVal == supportedVideoMediaTypes {
                         return;
                     } else if newVal {
                         supportedMediaTypes.insert(MediaTypes.video)
@@ -174,7 +191,8 @@ import Photos
             }()
         }
 
-        @objc(Preview) public class Preview : NSObject {
+        @objc(BSImagePickerFetchPreview)
+        @objcMembers public class Preview : NSObject {
             @objc public lazy var photoOptions: PHImageRequestOptions = {
                 let options = PHImageRequestOptions()
                 options.isNetworkAccessAllowed = true
@@ -205,29 +223,30 @@ import Photos
         @objc public lazy var preview = Preview()
     }
     
-    @objc(Dismiss) public class Dismiss : NSObject {
+    @objc(BSImagePickerDismiss)
+    @objcMembers public class Dismiss : NSObject {
         /// Should the image picker dismiss when done/cancelled
-        @objc public lazy var enabled = true
+        public lazy var enabled = true
 
         /// Allow the user to dismiss the image picker by swiping down
-        @objc public lazy var allowSwipe = false
+        public lazy var allowSwipe = false
     }
 
     /// Theme settings
-    @objc public lazy var theme = Theme()
+    public lazy var theme = Theme()
     
     /// Selection settings
-    @objc public lazy var selection = Selection()
+    public lazy var selection = Selection()
     
     /// List settings
-    @objc public lazy var list = List()
+    public lazy var list = List()
     
     /// Fetch settings
-    @objc public lazy var fetch = Fetch()
+    public lazy var fetch = Fetch()
     
     /// Dismiss settings
-    @objc public lazy var dismiss = Dismiss()
+    public lazy var dismiss = Dismiss()
 
     /// Preview options
-    @objc public lazy var previewEnabled: Bool = true
+    public lazy var preview = Preview()
 }

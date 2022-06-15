@@ -9,29 +9,29 @@ namespace SByteDev.Xamarin.iOS.BSImagePicker.Demo
 {
     public partial class ViewController : UIViewController
     {
-        private class Delegate : ImagePickerControllerDelegate
+        private class Delegate : BSImagePickerControllerDelegate
         {
-            public override void DidCancelWithAssets(ImagePickerController imagePicker, PHAsset[] assets)
+            public override void DidCancelWithAssets(BSImagePickerController imagePicker, PHAsset[] assets)
             {
                 Debug.WriteLine($"Cancelled with selections {assets}");
             }
 
-            public override void DidDeselectAsset(ImagePickerController imagePicker, PHAsset asset)
+            public override void DidDeselectAsset(BSImagePickerController imagePicker, PHAsset asset)
             {
                 Debug.WriteLine($"Deselected {asset}");
             }
 
-            public override void DidFinishWithAssets(ImagePickerController imagePicker, PHAsset[] assets)
+            public override void DidFinishWithAssets(BSImagePickerController imagePicker, PHAsset[] assets)
             {
                 Debug.WriteLine($"Finished with selections {assets}");
             }
 
-            public override void DidReachSelectionLimit(ImagePickerController imagePicker, nint count)
+            public override void DidReachSelectionLimit(BSImagePickerController imagePicker, nint count)
             {
                 Debug.WriteLine($"Reached selection limit with count {count}");
             }
 
-            public override void DidSelectAsset(ImagePickerController imagePicker, PHAsset asset)
+            public override void DidSelectAsset(BSImagePickerController imagePicker, PHAsset asset)
             {
                 Debug.WriteLine($"Selected {asset}");
             }
@@ -54,15 +54,15 @@ namespace SByteDev.Xamarin.iOS.BSImagePicker.Demo
 
         private async void ImagePickerButtonOnTouchUpInside(object _, EventArgs __)
         {
-            var imagePicker = new ImagePickerController(Array.Empty<PHAsset>())
+            var imagePicker = new BSImagePickerController(Array.Empty<PHAsset>())
             {
                 ImagePickerDelegate = new Delegate()
             };
 
             imagePicker.Settings.Selection.Max = 5;
             imagePicker.Settings.Theme.SelectionStyle = SelectionStyle.Numbered;
-            imagePicker.Settings.Fetch.Assets.AreImageTypesSupported = true;
-            imagePicker.Settings.Fetch.Assets.AreVideoTypesSupported = true;
+            imagePicker.Settings.Fetch.Assets.AreImageMediaTypesSupported = true;
+            imagePicker.Settings.Fetch.Assets.AreVideoMediaTypesSupported = true;
             imagePicker.Settings.Selection.ShouldUnselectOnReachingMax = true;
             imagePicker.Settings.Dismiss.IsSwipeEnabled = true;
             imagePicker.Settings.Dismiss.IsEnabled = true;
@@ -72,15 +72,15 @@ namespace SByteDev.Xamarin.iOS.BSImagePicker.Demo
 
         private async void CustomImagePickerButtonOnTouchUpInside(object _, EventArgs __)
         {
-            var imagePicker = new ImagePickerController(Array.Empty<PHAsset>())
+            var imagePicker = new BSImagePickerController(Array.Empty<PHAsset>())
             {
                 ImagePickerDelegate = new Delegate()
             };
 
             imagePicker.Settings.Selection.Max = 1;
             imagePicker.Settings.Selection.ShouldUnselectOnReachingMax = true;
-            imagePicker.Settings.Fetch.Assets.AreImageTypesSupported = true;
-            imagePicker.Settings.Fetch.Assets.AreVideoTypesSupported = true;
+            imagePicker.Settings.Fetch.Assets.AreImageMediaTypesSupported = true;
+            imagePicker.Settings.Fetch.Assets.AreVideoMediaTypesSupported = true;
             imagePicker.AlbumButton.TintColor = UIColor.Green;
             imagePicker.CancelButton.TintColor = UIColor.Red;
             imagePicker.DoneButton.TintColor = UIColor.Purple;
@@ -117,7 +117,7 @@ namespace SByteDev.Xamarin.iOS.BSImagePicker.Demo
                 .OfType<PHAsset>()
                 .ToArray();
 
-            var imagePicker = new ImagePickerController(assets)
+            var imagePicker = new BSImagePickerController(assets)
             {
                 ImagePickerDelegate = new Delegate()
             };

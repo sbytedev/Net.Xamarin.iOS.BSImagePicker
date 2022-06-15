@@ -30,7 +30,8 @@ class ViewController: UIViewController {
         let imagePicker = ImagePickerController()
         imagePicker.settings.selection.max = 5
         imagePicker.settings.theme.selectionStyle = .numbered
-        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
+        imagePicker.settings.fetch.assets.supportedImageMediaTypes = true
+        imagePicker.settings.fetch.assets.supportedVideoMediaTypes = true
         imagePicker.settings.selection.unselectOnReachingMax = true
 
         let start = Date()
@@ -52,7 +53,8 @@ class ViewController: UIViewController {
         let imagePicker = ImagePickerController()
         imagePicker.settings.selection.max = 1
         imagePicker.settings.selection.unselectOnReachingMax = true
-        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
+        imagePicker.settings.fetch.assets.supportedImageMediaTypes = true
+        imagePicker.settings.fetch.assets.supportedVideoMediaTypes = true
         imagePicker.albumButton.tintColor = UIColor.green
         imagePicker.cancelButton.tintColor = UIColor.red
         imagePicker.doneButton.tintColor = UIColor.purple
@@ -99,7 +101,8 @@ class ViewController: UIViewController {
         })
 
         let imagePicker = ImagePickerController(selectedAssets: evenAssets)
-        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
+        imagePicker.settings.fetch.assets.supportedImageMediaTypes = true
+        imagePicker.settings.fetch.assets.supportedVideoMediaTypes = true
 
         self.presentImagePicker(imagePicker, select: { (asset) in
             print("Selected: \(asset)")

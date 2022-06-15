@@ -18,6 +18,21 @@ jobs:
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
+      
+    - name: Setup XCFramework converter
+      run: brew install keith/formulae/xcframework-to-fat
+      
+    - name: Build device archive
+      run: xcodebuild archive -project BSImagePicker.xcodeproj -scheme BSImagePicker -destination "generic/platform=iOS" -archivePath BSImagePicker-iOS SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+
+    - name: Build simulator archive
+      run: xcodebuild archive -project BSImagePicker.xcodeproj -scheme BSImagePicker -destination "generic/platform=iOS Simulator" \ -archivePath BSImagePicker-Simulator SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+
+    - name: Make XCFramework
+      run: xcodebuild -create-xcframework -framework BSImagePicker-iOS.xcarchive/Products/Library/Frameworks/BSImagePicker.framework -framework BSImagePicker-Simulator.xcarchive/Products/Library/Frameworks/BSImagePicker.framework -output BSImagePicker.xcframework
+
+    - name: Make fat framework
+      run: xcframework-to-fat BSImagePicker.xcframework ./ x86_64-apple-ios-simulator arm64-apple-ios
 
     - name: Restore NuGet packages
       run: nuget restore

@@ -23,15 +23,19 @@ jobs:
       run: brew install keith/formulae/xcframework-to-fat
       
     - name: Build device archive
+      working-directory: BSImagePicker
       run: xcodebuild archive -project BSImagePicker.xcodeproj -scheme BSImagePicker -destination "generic/platform=iOS" -archivePath BSImagePicker-iOS SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES
 
     - name: Build simulator archive
+      working-directory: BSImagePicker
       run: xcodebuild archive -project BSImagePicker.xcodeproj -scheme BSImagePicker -destination "generic/platform=iOS Simulator" \ -archivePath BSImagePicker-Simulator SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES
 
     - name: Make XCFramework
+      working-directory: BSImagePicker
       run: xcodebuild -create-xcframework -framework BSImagePicker-iOS.xcarchive/Products/Library/Frameworks/BSImagePicker.framework -framework BSImagePicker-Simulator.xcarchive/Products/Library/Frameworks/BSImagePicker.framework -output BSImagePicker.xcframework
 
     - name: Make fat framework
+      working-directory: BSImagePicker
       run: xcframework-to-fat BSImagePicker.xcframework ./ x86_64-apple-ios-simulator arm64-apple-ios
 
     - name: Restore NuGet packages

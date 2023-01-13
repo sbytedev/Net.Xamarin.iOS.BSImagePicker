@@ -84,7 +84,7 @@ namespace SByteDev.Xamarin.iOS.BSImagePicker
 		// @required -(void)imagePicker:(BSImagePickerController * _Nonnull)imagePicker didReachSelectionLimit:(NSInteger)count;
 		[Abstract]
 		[Export("imagePicker:didReachSelectionLimit:")]
-		void DidReachSelectionLimit(BSImagePickerController imagePicker, nint count);
+		void DidReachSelectionLimit(BSImagePickerController imagePicker, IntPtr count);
 	}
 
 	// @interface BSImagePickerSettings : NSObject
@@ -168,11 +168,11 @@ namespace SByteDev.Xamarin.iOS.BSImagePicker
 	{
 		// @property (nonatomic) NSInteger max;
 		[Export("max")]
-		nint Max { get; set; }
+		IntPtr Max { get; set; }
 
 		// @property (nonatomic) NSInteger min;
 		[Export("min")]
-		nint Min { get; set; }
+		IntPtr Min { get; set; }
 
 		// @property (nonatomic) BOOL unselectOnReachingMax;
 		[Export("unselectOnReachingMax")]
@@ -189,7 +189,7 @@ namespace SByteDev.Xamarin.iOS.BSImagePicker
 
 		// @property (copy, nonatomic) NSInteger (^ _Nonnull)(UIUserInterfaceSizeClass, UIUserInterfaceSizeClass) cellsPerRow;
 		[Export("cellsPerRow", ArgumentSemantic.Copy)]
-		Func<UIUserInterfaceSizeClass, UIUserInterfaceSizeClass, nint> CellsPerRow { get; set; }
+		Func<UIUserInterfaceSizeClass, UIUserInterfaceSizeClass, IntPtr> CellsPerRow { get; set; }
 	}
 
 	// @interface BSImagePickerPreview : NSObject

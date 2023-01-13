@@ -17,29 +17,35 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      
-    - name: Setup XCFramework converter
-      run: brew install keith/formulae/xcframework-to-fat
-      
-    - name: Build device archive
-      working-directory: BSImagePicker
-      run: xcodebuild archive -project BSImagePicker.xcodeproj -scheme BSImagePicker -destination "generic/platform=iOS" -archivePath BSImagePicker-iOS SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '7.0.x'
 
-    - name: Build simulator archive
+    - name: Install the iOS workload
+      run: dotnet workload install ios --ignore-failed-sources
+ 
+    - name: Build device version
       working-directory: BSImagePicker
-      run: xcodebuild archive -project BSImagePicker.xcodeproj -scheme BSImagePicker -destination "generic/platform=iOS Simulator" -archivePath BSImagePicker-Simulator SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+      run: xcodebuild -sdk iphoneos -project "BSImagePicker.xcodeproj" -configuration Release
 
-    - name: Make XCFramework
+    - name: Build simulator version
       working-directory: BSImagePicker
-      run: xcodebuild -create-xcframework -framework BSImagePicker-iOS.xcarchive/Products/Library/Frameworks/BSImagePicker.framework -framework BSImagePicker-Simulator.xcarchive/Products/Library/Frameworks/BSImagePicker.framework -output BSImagePicker.xcframework
+      run: xcodebuild -sdk iphonesimulator -project "BSImagePicker.xcodeproj" -configuration Release
 
-    - name: Make fat framework
+    - name: Copy one of the frameworks as an initial version of the final output
       working-directory: BSImagePicker
-      run: xcframework-to-fat BSImagePicker.xcframework ./ x86_64-apple-ios-simulator arm64-apple-ios
+      run: cp -R "build/Release-iphoneos" "build/Release-fat"
+
+    - name: Combine module from another build
+      working-directory: BSImagePicker
+      run: cp -R "build/Release-iphonesimulator/BSImagePicker.framework/Modules/BSImagePicker.swiftmodule/" "build/Release-fat/BSImagePicker.framework/Modules/BSImagePicker.swiftmodule/"
+
+    - name: Combine iphoneos + iphonesimulator configuration
+      working-directory: BSImagePicker
+      run: lipo -create -output "build/Release-fat/BSImagePicker.framework/BSImagePicker" "build/Release-iphoneos/BSImagePicker.framework/BSImagePicker" "build/Release-iphonesimulator/BSImagePicker.framework/BSImagePicker"
 
     - name: Restore NuGet packages
-      run: nuget restore
+      run: dotnet restore
 
     - name: Build
-      run: MSBuild /t:SByteDev_Xamarin_iOS_BSImagePicker /p:Configuration=Release /p:Platform=iPhone
+      run: dotnet msbuild /t:SByteDev_Xamarin_iOS_BSImagePicker /p:Configuration=Release /p:Platform=iPhone

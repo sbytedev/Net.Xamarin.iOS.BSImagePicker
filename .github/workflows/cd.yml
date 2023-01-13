@@ -19,7 +19,10 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '7.0.x'
-   
+
+    - name: Install the iOS workload
+      run: dotnet workload install ios --ignore-failed-sources
+
     - name: Build device version
       working-directory: BSImagePicker
       run: xcodebuild -sdk iphoneos -project "BSImagePicker.xcodeproj" -configuration Release

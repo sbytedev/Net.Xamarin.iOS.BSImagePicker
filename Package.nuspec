@@ -21,6 +21,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="SByteDev.Xamarin.iOS.BSImagePicker/bin/Release/SByteDev.Xamarin.iOS.BSImagePicker.dll" target="lib/Xamarin.iOS10/SByteDev.Xamarin.iOS.BSImagePicker.dll" />
+    <file src="SByteDev.Xamarin.iOS.BSImagePicker/bin/Release/net7.0-ios/SByteDev.Xamarin.iOS.BSImagePicker.dll" target="lib/Xamarin.iOS10/SByteDev.Xamarin.iOS.BSImagePicker.dll" />
   </files>
 </package>

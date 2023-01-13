@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SByteDev.Xamarin.iOS.BSImagePicker</id>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <authors>Prin53, SByteDev</authors>
     <owners>Prin53, SByteDev</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -12,7 +12,7 @@
     <iconUrl>https://i.imgur.com/DtkfyPTm.jpg</iconUrl>
     <title>A multiple image picker for iOS.</title>
     <description>BSImagePicker bindings for Xamarin.iOS</description>
-    <releaseNotes>Update to BSImagePicker version 3.3.1</releaseNotes>
+    <releaseNotes>Migrate to .Net 7</releaseNotes>
     <copyright>SByteDev</copyright>
     <tags>Xamarin ImagePicker BSImagePicker</tags>
     <dependencies>

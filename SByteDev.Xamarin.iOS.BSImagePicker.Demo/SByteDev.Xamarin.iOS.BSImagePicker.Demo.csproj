@@ -74,9 +74,6 @@
       <CreatePackage>false</CreatePackage>
     </PropertyGroup>
     <ItemGroup>
-       
-    </ItemGroup>
-    <ItemGroup>
         <Folder Include="Resources\" />
     </ItemGroup>
     <ItemGroup>

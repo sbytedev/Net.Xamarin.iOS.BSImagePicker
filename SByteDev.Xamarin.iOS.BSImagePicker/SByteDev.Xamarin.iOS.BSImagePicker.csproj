@@ -1,6 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <Authors>Prin53;SByteDev</Authors>
+    <Copyright>SByteDev</Copyright>
+    <Description>BSImagePicker bindings for Xamarin.iOS</Description>
+    <PackageIconUrl>https://i.imgur.com/DtkfyPTm.jpg</PackageIconUrl>
+    <PackageId>SByteDev.Xamarin.iOS.BSImagePicker</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/SByteDev/Net.Xamarin.iOS.BSImagePicker</PackageProjectUrl>
+    <PackageReleaseNotes>Fix migration to .Net 7</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <PackageTags>Xamarin;ImagePicker;BSImagePicker</PackageTags>
+    <PackageVersion>1.0.5</PackageVersion>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/SByteDev/Net.Xamarin.iOS.BSImagePicker</RepositoryUrl>
+    <Title>A multiple image picker for iOS.</Title>
+  </PropertyGroup>
+  <PropertyGroup>
     <TargetFramework>net7.0-ios</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>true</ImplicitUsings>

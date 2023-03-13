@@ -1,49 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectTypeGuids>{8FFB629D-F513-41CE-95D2-7ECE97B6EEEC};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{1D710A4A-2A39-4C3A-B61B-E5030D921868}</ProjectGuid>
-    <TemplateGuid>{b6f3ff35-79b2-4f25-a2fc-60a7cf61013b}</TemplateGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>SByteDev.Xamarin.iOS.BSImagePicker</RootNamespace>
-    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>SByteDev.Xamarin.iOS.BSImagePicker</AssemblyName>
-    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+    <Authors>Prin53;SByteDev</Authors>
+    <Copyright>SByteDev</Copyright>
+    <Description>BSImagePicker bindings for Xamarin.iOS</Description>
+    <PackageIconUrl>https://i.imgur.com/DtkfyPTm.jpg</PackageIconUrl>
+    <PackageId>SByteDev.Xamarin.iOS.BSImagePicker</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/SByteDev/Net.Xamarin.iOS.BSImagePicker</PackageProjectUrl>
+    <PackageReleaseNotes>Fix migration to .Net 7</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <PackageTags>Xamarin;ImagePicker;BSImagePicker</PackageTags>
+    <PackageVersion>1.0.5</PackageVersion>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/SByteDev/Net.Xamarin.iOS.BSImagePicker</RepositoryUrl>
+    <Title>A multiple image picker for iOS.</Title>
+  </PropertyGroup>
+  <PropertyGroup>
     <TargetFramework>net7.0-ios</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>true</ImplicitUsings>
     <IsBindingProject>true</IsBindingProject>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoBindingEmbedding>false</NoBindingEmbedding>
   </PropertyGroup>
   <ItemGroup>
     <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <ObjcBindingCoreSource Include="Structs.cs" />
   </ItemGroup>
   <ItemGroup>
     <NativeReference Include="..\BSImagePicker\build\Release-fat\BSImagePicker.framework">
       <Kind>Framework</Kind>
-      <SmartLink>False</SmartLink>
+      <ForceLoad>true</ForceLoad>
+      <SmartLink>true</SmartLink>
     </NativeReference>
   </ItemGroup>
 </Project>

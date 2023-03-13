@@ -50,7 +50,7 @@ jobs:
       run: dotnet msbuild /t:SByteDev_Xamarin_iOS_BSImagePicker /p:Configuration=Release /p:Platform=iPhone
       
     - name: Pack
-      run: nuget pack Package.nuspec
+      run: dotnet pack SByteDev.Xamarin.iOS.BSImagePicker/SByteDev.Xamarin.iOS.BSImagePicker.csproj -c Release -o ./
       
     - name: Upload to NuGet
       run: dotnet nuget push *.nupkg --source nuget.org --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate

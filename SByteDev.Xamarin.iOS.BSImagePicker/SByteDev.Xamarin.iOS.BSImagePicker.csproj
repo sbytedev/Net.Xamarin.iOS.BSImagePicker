@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>true</ImplicitUsings>
     <IsBindingProject>true</IsBindingProject>
+    <NoBindingEmbedding>false</NoBindingEmbedding>
   </PropertyGroup>
   <ItemGroup>
     <ObjcBindingApiDefinition Include="ApiDefinition.cs" />
@@ -13,7 +14,8 @@
   <ItemGroup>
     <NativeReference Include="..\BSImagePicker\build\Release-fat\BSImagePicker.framework">
       <Kind>Framework</Kind>
-      <SmartLink>False</SmartLink>
+      <ForceLoad>true</ForceLoad>
+      <SmartLink>true</SmartLink>
     </NativeReference>
   </ItemGroup>
 </Project>
